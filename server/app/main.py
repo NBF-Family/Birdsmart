@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app.controllers import auth_controller, health_controller
+from app.controllers import auth_controller, health_controller, listing_controller
 from app.database.db import connect_to_mongo, close_mongo_connection
 
 def create_app() -> FastAPI:
@@ -12,6 +12,7 @@ def create_app() -> FastAPI:
     # Include routers
     app.include_router(auth_controller.router)
     app.include_router(health_controller.router)
+    app.include_router(listing_controller.listing_router)
     return app
 
 app = create_app()

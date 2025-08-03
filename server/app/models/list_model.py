@@ -24,7 +24,7 @@ class HealthInfo(BaseModel):
     vet_checked: bool = Field(alias="vetChecked")
     notes: Optional[str] = None
 
-    model_config = {"populate_by_name": True}
+    model_config = {"validate_by_name": True}
 
 class Status(str, Enum):
     ACTIVE = "active"
@@ -56,7 +56,7 @@ class ListingOut(ListingBase):
     updated_at: datetime
 
     model_config = {
-        "populate_by_name": True,
+        "validate_by_name": True,
         "json_encoders": {datetime: lambda dt: dt.isoformat()}
     }
 
@@ -74,4 +74,4 @@ class ListingUpdate(BaseModel):
     location: Optional[Location] = None
     status: Optional[Status] = None
 
-    model_config = {"populate_by_name": True}
+    model_config = {"validate_by_name": True}
