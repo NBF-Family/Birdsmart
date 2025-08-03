@@ -1,6 +1,7 @@
-from pydantic import BaseModel, Field, Optional
+from pydantic import BaseModel, Field
 from enum import Enum
 from datetime import datetime
+from typing import Optional
 
 class Location(BaseModel):
     coords: list[float]
@@ -28,6 +29,21 @@ class UserBase(BaseModel):
 class UserCreate(UserBase):
     password: str = Field(..., min_length=8, description="Password must be at least 8 characters long")
 
+# Internal model - includes password for authentication (never returned to clients)
+class User(UserBase):
+    id: str = Field(..., alias="_id")
+    password: str  # Hashed password
+    role: Roles
+    profile: Profile
+    rating: Rating
+    created_at: datetime
+    updated_at: datetime
+
+    class Config:
+        allow_population_by_field_name = True
+        json_encoders = {datetime: lambda dt: dt.isoformat()}
+
+# External model - no password (returned to clients)
 class UserOut(UserBase):
     id: str = Field(..., alias="_id")
     role: Roles
