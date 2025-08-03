@@ -1,4 +1,5 @@
-from pydantic import BaseModel, Field, Optional
+from pydantic import BaseModel, Field
+from typing import Optional
 from enum import Enum
 from datetime import datetime
 
@@ -23,8 +24,7 @@ class HealthInfo(BaseModel):
     vet_checked: bool = Field(alias="vetChecked")
     notes: Optional[str] = None
 
-    class Config:
-        allow_population_by_field_name = True
+    model_config = {"validate_by_name": True}
 
 class Status(str, Enum):
     ACTIVE = "active"
@@ -55,9 +55,10 @@ class ListingOut(ListingBase):
     created_at: datetime
     updated_at: datetime
 
-    class Config:
-        allow_population_by_field_name = True
-        json_encoders = {datetime: lambda dt: dt.isoformat()}
+    model_config = {
+        "validate_by_name": True,
+        "json_encoders": {datetime: lambda dt: dt.isoformat()}
+    }
 
 class ListingUpdate(BaseModel):
     title: Optional[str] = Field(None, min_length=1, max_length=200)
@@ -73,5 +74,4 @@ class ListingUpdate(BaseModel):
     location: Optional[Location] = None
     status: Optional[Status] = None
 
-    class Config:
-        allow_population_by_field_name = True
+    model_config = {"validate_by_name": True}
