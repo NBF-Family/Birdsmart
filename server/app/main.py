@@ -1,30 +1,17 @@
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
+from app.controllers import auth_controller, health_controller
+from app.database.db import connect_to_mongo, close_mongo_connection
 
-from .controllers import listing_router
+def create_app() -> FastAPI:
+    app = FastAPI(title="Birdsmart API", version="0.1.0")
 
-app = FastAPI(
-    title="Birdsmart API",
-    description="API for bird trading platform",
-    version="1.0.0"
-)
+    # Database connection events
+    app.add_event_handler("startup", connect_to_mongo)
+    app.add_event_handler("shutdown", close_mongo_connection)
 
-# Add CORS middleware
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],  # Configure this properly for production
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+    # Include routers
+    app.include_router(auth_controller.router)
+    app.include_router(health_controller.router)
+    return app
 
-# Include routers
-app.include_router(listing_router, prefix="/api/v1")
-
-@app.get("/")
-async def root():
-    return {"message": "Welcome to Birdsmart API"}
-
-@app.get("/health")
-async def health_check():
-    return {"status": "healthy"}
+app = create_app()
