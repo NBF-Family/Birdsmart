@@ -21,7 +21,7 @@ class Profile(BaseModel):
 class Roles(str, Enum):
     BUYER = "buyer"
     SELLER = "seller"
-
+    ADMIN = "admin"
 class UserBase(BaseModel):
     username: str
     email: str

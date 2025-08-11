@@ -1,12 +1,12 @@
 from fastapi.security import OAuth2PasswordBearer
 from fastapi import Depends, HTTPException, status
 from jose import JWTError, jwt
-from app.core.config import SECRET_KEY, ALGORITHM
-from app.models.token_model import TokenData
+from ..core.config import SECRET_KEY, ALGORITHM
+from ..models.token_model import TokenData
 from passlib.context import CryptContext
 from datetime import datetime, timedelta, timezone
-from app.core.config import ACCESS_TOKEN_EXPIRE_MINUTES
-from app.cruds.user_crud import get_user_by_id
+from ..core.config import ACCESS_TOKEN_EXPIRE_MINUTES
+from ..cruds.user_crud import get_user_by_id
 
 pwd_ctx = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
