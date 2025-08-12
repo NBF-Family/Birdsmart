@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { healthApi, type HealthCheckResponse } from '../apis/healthApi';
+import { healthApi, type HealthCheckResponse } from '../services/apis/healthApi';
 
 interface HealthStatus {
   loading: boolean;
