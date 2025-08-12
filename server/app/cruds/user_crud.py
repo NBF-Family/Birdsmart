@@ -9,10 +9,10 @@ async def create_user(user_in: UserCreate) -> UserOut:
         "username": user_in.username,
         "email": user_in.email,
         "password": user_in.password,  # Already hashed in auth_service
-        "role": Roles.BUYER,
+        "role": user_in.role,
         "profile": Profile(
-            full_name=user_in.username,
-            location=Location(coords=[0, 0], city="", country="", state=""),
+            full_name=user_in.fullName,
+            location=user_in.location,
             avatar_url=None,
         ).model_dump(),
         "rating": Rating(avg=0.0, count=0).model_dump(),

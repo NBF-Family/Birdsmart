@@ -92,7 +92,7 @@ export const LoginPage: React.FC = () => {
       console.log('Login successful:', response);
       
       // Redirect to dashboard or home page
-      //navigate('/dashboard');
+      navigate('/');
       
     } catch (error: any) {
       console.error('Login failed:', error);

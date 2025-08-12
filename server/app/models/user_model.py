@@ -28,6 +28,9 @@ class UserBase(BaseModel):
 
 class UserCreate(UserBase):
     password: str = Field(..., min_length=8, description="Password must be at least 8 characters long")
+    fullName: str
+    location: Location
+    role: Roles
 
 # Internal model - includes password for authentication (never returned to clients)
 class User(UserBase):
