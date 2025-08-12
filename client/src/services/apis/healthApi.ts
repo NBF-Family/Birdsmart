@@ -1,16 +1,5 @@
 import axios from 'axios';
-
-// API configuration
-const API_BASE_URL = 'http://127.0.0.1:8000';
-
-// Create axios instance with base configuration
-const api = axios.create({
-  baseURL: API_BASE_URL,
-  timeout: 10000, // 10 second timeout
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
+import api from './api';
 
 // Health check response interface
 export interface HealthCheckResponse {

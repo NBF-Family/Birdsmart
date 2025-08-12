@@ -1,5 +1,5 @@
 from app.models.user_model import UserCreate, UserOut
-from app.cruds.user_crud import get_user_by_email, get_user_by_username, create_user, get_user_by_username_internal
+from app.cruds.user_crud import get_user_by_email, get_user_by_username, create_user, get_user_by_email_internal
 from app.services.dependencies import hash_password, verify_password
 from fastapi import HTTPException, status
 from typing import Optional
@@ -20,9 +20,9 @@ async def signup(user_in: UserCreate) -> UserOut:
     user_in.password = hash_password(user_in.password)
     return await create_user(user_in)
 
-async def authenticate_user(username: str, password: str) -> Optional[UserOut]:
+async def authenticate_user(email: str, password: str) -> Optional[UserOut]:
     # Use internal method to get user with password
-    user_with_password = await get_user_by_username_internal(username)
+    user_with_password = await get_user_by_email_internal(email)
     if not user_with_password:
         return None
     if not verify_password(password, user_with_password.password):
