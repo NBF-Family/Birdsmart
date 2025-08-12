@@ -20,10 +20,10 @@ export const RegisterPage: React.FC = () => {
     confirmPassword: '',
     fullName: '', // Optional
     location: {
-      city: '',    // Optional
-      state: '',   // Optional
-      country: '', // Optional
-      cords: [0, 0], // Optional
+      city: '',
+      state: '',
+      country: '',
+      coords: [0, 0], // Optional
     },
     role: 'buyer',
   });
@@ -142,29 +142,32 @@ export const RegisterPage: React.FC = () => {
 
         <FormInput
           id="city"
-          name="city"
+          name="location.city"
           label="City"
           value={formData.location.city}
           onChange={handleChange}
-          placeholder="Enter your city (optional)"
+          placeholder="Enter your city"
+          required
         />
 
         <FormInput
           id="state"
-          name="state"
+          name="location.state"
           label="State"
           value={formData.location.state}
           onChange={handleChange}
-          placeholder="Enter your state (optional)"
+          placeholder="Enter your state"
+          required
         />
 
         <FormInput
           id="country"
-          name="country"
+          name="location.country"
           label="Country" 
           value={formData.location.country}
           onChange={handleChange}
-          placeholder="Enter your country (optional)"
+          placeholder="Enter your country"
+          required
         />
          
         <FormSelect

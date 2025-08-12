@@ -8,7 +8,7 @@ export interface RegisterFormData {
         city: string;
         state: string;
         country: string;
-        cords: Array<number>;
+        coords: Array<number>;
     };
     role: 'buyer' | 'seller' | 'admin';
 }

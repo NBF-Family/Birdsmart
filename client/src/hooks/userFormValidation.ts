@@ -41,8 +41,16 @@ export const useFormValidation = () => {
       newErrors.confirmPassword = 'Passwords do not match';
     }
 
-    // Full name, city, state, country are now OPTIONAL
-    // No validation needed for optional fields
+    // Location validation - REQUIRED
+    if (!formData.location.city.trim()) {
+      newErrors['location.city'] = 'City is required';
+    }
+    if (!formData.location.state.trim()) {
+      newErrors['location.state'] = 'State is required';
+    }
+    if (!formData.location.country.trim()) {
+      newErrors['location.country'] = 'Country is required';
+    }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;

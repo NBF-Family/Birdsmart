@@ -19,29 +19,23 @@ export interface RegisterRequest {
 
 export const authApi = {
     register: async (formData: RegisterFormData): Promise<UserOut> => {
-
-        const coords = [0, 0];
-
-        const registerData: RegisterRequest = {
-            username: formData.username,
-            email: formData.email,
-            password: formData.password,
-            profile: {
-                full_name: formData.fullName,
-                location: {
-                coords,
-                city: formData.location.city,
-                country: formData.location.country,
-                state: formData.location.state,
-                },
-            },
-        };
-
         try {
-            const response = await api.post<UserOut>('/auth/signup', registerData);
+            const response = await api.post<UserOut>('/auth/signup', formData);
             return response.data;
         } catch (error: any) {
-            throw new Error(error.response?.data?.detail || 'Registration failed');
+            if (error.response && error.response.data && error.response.data.detail) {
+                // Handle complex validation errors
+                if (Array.isArray(error.response.data.detail)) {
+                    const errorMessages = error.response.data.detail.map((err: any) => {
+                        const field = err.loc[err.loc.length - 1];
+                        return `${field}: ${err.msg}`;
+                    }).join(', ');
+                    throw new Error(errorMessages);
+                }
+                // Handle simple string errors
+                throw new Error(error.response.data.detail);
+            }
+            throw new Error('Registration failed');
         }
     },
 
