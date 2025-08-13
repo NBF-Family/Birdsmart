@@ -1,8 +1,7 @@
 // src/pages/LoginPage.tsx
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { authApi } from '../services/apis/authApi';
-import { tokenStorage } from '../utils/tokenStorage';
+import { useAuth } from '../contexts/AuthContext';
 import { FormInput } from '../components/common/FormInput';
 import { ErrorAlert } from '../components/common/ErrorAlert';
 import { SubmitButton } from '../components/common/SubmitButton';
@@ -20,6 +19,7 @@ export const LoginPage: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const state = location.state as LocationState;
+  const { login } = useAuth();
   
   const [formData, setFormData] = useState<LoginFormData>({
     email: '',
@@ -84,12 +84,9 @@ export const LoginPage: React.FC = () => {
     setLoading(true);
 
     try {
-      const response = await authApi.login(formData.email, formData.password) as { access_token: string };
+      await login(formData.email, formData.password);
       
-      // Store the access token
-      tokenStorage.setToken(response.access_token);
-      
-      console.log('Login successful:', response);
+      console.log('Login successful');
       
       // Redirect to dashboard or home page
       navigate('/');

@@ -39,13 +39,13 @@ export const authApi = {
         }
     },
 
-    login: async (email: string, password: string)=> {
+    login: async (email: string, password: string): Promise<UserOut> => {
         const formData = new FormData();
         formData.append('username', email);
         formData.append('password', password);
 
         try {
-            const response = await api.post('/auth/login', formData, {
+            const response = await api.post<UserOut>('/auth/login', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -53,6 +53,27 @@ export const authApi = {
             return response.data;
         } catch (error: any) {
             throw new Error(error.response?.data?.detail || 'Login failed');
+        }
+    },
+
+    logout: async (): Promise<void> => {
+        try {
+            await api.post('/auth/logout');
+        } catch (error: any) {
+            // Even if logout fails on server, we still want to redirect
+            console.error('Logout error:', error);
+        }
+    },
+
+    // Check if user is authenticated by making a request that requires auth
+    checkAuth: async (): Promise<UserOut | null> => {
+        try {
+            // We can create a simple endpoint for this, or use an existing protected endpoint
+            // For now, let's assume we'll create a /auth/me endpoint
+            const response = await api.get<UserOut>('/auth/me');
+            return response.data;
+        } catch (error: any) {
+            return null;
         }
     }
 }
