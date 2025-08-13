@@ -55,6 +55,9 @@ export const WelcomePage = () => {
             <Link to="/register" style={{ textDecoration: 'none' }}>
               <button>Register</button>
             </Link>
+            <Link to="/listings" style={{ textDecoration: 'none' }}>
+              <button>Listings</button>
+            </Link>
           </div>
         )}
       </div>
