@@ -29,7 +29,7 @@ export const WelcomePage = () => {
     <div style={{ padding: '2rem', textAlign: 'center' }}>
       <h1>Welcome to Birdsmart{user ? `, ${user.username}` : ''}!</h1>
       
-      <div style={{ marginTop: '2rem' }}>
+      <div style={{ marginTop: '2rem' }}>  
         {user ? (
           <div>
             <p>You are logged in as: <strong>{user.email}</strong></p>

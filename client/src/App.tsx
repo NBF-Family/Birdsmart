@@ -3,6 +3,7 @@ import HealthCheck from './components/HealthCheck'
 import { RegisterPage } from './pages/RegisterPage'
 import { LoginPage } from './pages/LoginPage'
 import { WelcomePage } from './pages/WelcomePage'
+
 import { AuthProvider } from './contexts/AuthContext'
 
 function App() {
