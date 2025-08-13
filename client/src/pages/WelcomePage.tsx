@@ -7,6 +7,9 @@ export const WelcomePage = () => {
       <h1>Welcome to Birdsmart!</h1>
       
       <div style={{ marginTop: '2rem' }}>
+        <Link to="/listings" style={{ marginRight: '1rem', textDecoration: 'none' }}>
+          <button>Browse Listings</button>
+        </Link>
         <Link to="/login" style={{ marginRight: '1rem', textDecoration: 'none' }}>
           <button>Login</button>
         </Link>
