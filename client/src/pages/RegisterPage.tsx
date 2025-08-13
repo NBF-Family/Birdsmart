@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { authApi } from '../services/apis/authApi';
 import { useFormValidation } from '../hooks/userFormValidation';
-import type { RegisterFormData, ApiError } from '../types/auth';
+import type { RegisterFormData } from '../types/auth';
 import { ErrorAlert } from '../components/common/ErrorAlert';
 import { FormInput } from '../components/common/FormInput';
 import { SubmitButton } from '../components/common/SubmitButton';
